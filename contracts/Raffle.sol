@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
@@ -56,13 +56,13 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
         uint32 callbackGasLimit
     ) VRFConsumerBaseV2(vrfCoordinatorV2) {
         i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
+        i_subscriptionId = subscriptionId;
         i_gasLane = gasLane;
         i_interval = interval;
-        i_subscriptionId = subscriptionId;
         i_entranceFee = entranceFee;
+        i_callbackGasLimit = callbackGasLimit;
         s_raffleState = RaffleState.OPEN;
         s_lastTimeStamp = block.timestamp;
-        i_callbackGasLimit = callbackGasLimit;
     }
 
     function enterRaffle() public payable {
